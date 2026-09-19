@@ -1,5 +1,6 @@
 % selects the first argument for German, the second for English thesis language
-\ifnum\pdfstrcmp{\thesislang}{de}=0
+\def\germanthesislang{de}
+\ifx\thesislang\germanthesislang
 	\newcommand{\langselect}[2]{#1}
 \else
 	\newcommand{\langselect}[2]{#2}
@@ -150,7 +151,15 @@ morekeywords={base,var,in,out,dynamic,from,where,select,orderby,function,\$,grou
 \pagestyle{scrheadings}
 \automark{chapter}
 \renewcommand\sectionmark[1]{\markright{\MakeMarkcase {\thesection\hskip .5em\relax#1}}}
-\rohead{\ifnum\expandafter\pdfstrcmp\botmark=0 \rightmark\else\leftmark{} --- \rightmark\fi}
+\newcommand{\formatheadmark}[2]{%
+	\def\leftheadmark{#1}%
+	\def\rightheadmark{#2}%
+	\ifx\leftheadmark\rightheadmark
+		\rightmark
+	\else
+		\leftmark{} --- \rightmark
+	\fi}
+\rohead{\expandafter\formatheadmark\botmark}
 \ihead[]{\headmark}
 \chead[]{}
 \ohead{\currentauthor}
