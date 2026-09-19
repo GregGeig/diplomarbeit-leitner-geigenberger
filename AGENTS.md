@@ -29,6 +29,7 @@ Students can also request a review directly, e.g.:
 - "Check the whole thesis for rule violations."
 - "Check only language and tone in the introduction."
 - "Are all figures, tables, and listings referenced?"
+- "Does our thesis cover the recommended content (Section 7)?"
 
 ## 2. Repository Structure
 
@@ -56,7 +57,7 @@ Students can also request a review directly, e.g.:
 
 - Chapter headings (`\chapter{…}`) live in `thesis.tex`; the files in `sections/` start directly with the chapter's content and use `\section`, `\subsection`, and (sparingly) `\subsubsection`.
 - **Fixed headings:** *Abstract* and *Zusammenfassung* (the two abstracts), the first chapter *Einleitung*/*Introduction*, and the last chapter *Zusammenfassung*/*Summary*. They must not be renamed, removed, or moved; the chapter headings switch automatically with `\thesislang`.
-- **Flexible headings:** all chapters between Introduction and Summary are defined by the students (the template's three are samples). A new chapter gets a file in `sections/` and an entry in `thesis.tex`. Its heading is either written in the thesis language or given for both languages with `\langselect{German}{English}`.
+- **Flexible headings:** all chapters between Introduction and Summary are defined by the students (the template's three are samples). A new chapter gets a file in `sections/` and an entry in `thesis.tex`. Its heading is either written in the thesis language or given for both languages with `\langselect{German}{English}`. Section 7 lists the content the supervisors recommend covering in these chapters.
 - The table of contents only shows chapters and sections (`tocdepth` = 1). `\subsubsection` should be avoided.
 - Authorship is declared with the macro `\setauthor{…}` directly after each `\section` command, preferably with the constants from `global-const.tex` (e.g. `\setauthor{\secondauthor}`). The name appears in the page header. Every `\chapter` resets the author automatically, so the Introduction, the Summary, and chapter introductions before the first section show no author (see rule S7).
 - `\langselect{German}{English}` picks the text matching `\thesislang`; `\joinauthors{separator}{last separator}` lists all defined authors. Both are defined in `header.tex`.
@@ -91,7 +92,7 @@ Report open items briefly, then continue with what the students asked for.
 | 1     | Project configuration      | Walk through **every** item of the configuration checklist (Section 3.3). Ask the students for the values (title, names, dates, …); never guess them.                                                                                                                                            |
 | 2     | Coversheet                 | Build the coversheet (Section 4.2).                                                                                                                                                                                                                                                               |
 | 3     | First full build           | Run the full build (Section 4.3) and check the result: cover sheet (names, partner, date), statutory declaration names, both abstracts, table of contents, chapter headings and figure/table names in the thesis language, PDF metadata (title, authors, keywords in the PDF properties).         |
-| 4     | Structure and authorship   | Replace the sample content chapters in `thesis.tex` and `sections/` with the students' own chapters; the fixed chapters stay (see Conventions). Plan the sections of each chapter and assign **one author per section** (rule S7). Remove the template's sample content when the students start writing. |
+| 4     | Structure and authorship   | Replace the sample content chapters in `thesis.tex` and `sections/` with the students' own chapters; the fixed chapters stay (see Conventions). Plan the sections of each chapter against the recommended content areas (Section 7) and assign **one author per section** (rule S7). Remove the template's sample content when the students start writing. |
 | 5     | Writing (repeated)         | Students write; you help with LaTeX mechanics: images in `pics/`, floats with caption and label, BibTeX entries in `bib.bib` (from the students' sources), acronyms in `glossary.tex`, listing languages in `header.tex`. **Offer a review** (Section 5) whenever a section or chapter is finished. |
 | 6     | Before submission          | Go through the submission checklist (Section 3.4).                                                                                                                                                                                                                                                 |
 
@@ -120,6 +121,7 @@ Do not edit the author names, dates, or metadata directly in `oath.tex`, `titlep
 - [ ] Both abstracts (English and German) present, each with a representative inline image (rule S5).
 - [ ] Every section has exactly one author (rule S7).
 - [ ] Full review against all rules (Section 6) done and findings resolved by the students.
+- [ ] Recommended content areas (Section 7) covered, or deviations consciously decided by the students.
 - [ ] PDF metadata (title, authors, keywords) correct in the PDF properties.
 
 ## 4. Build Environment and Building
@@ -213,7 +215,8 @@ For everyday writing a single `pdflatex` run is sufficient, but always run the f
 1. **Establish scope.** Whole thesis or specific files/chapters? Which rule groups (all by default)?
 2. **Read the context.** Read `global-const.tex` (language) and `thesis.tex` (chapter order), then the relevant files in `sections/` in document order. Transitions (rule S2) can only be judged with the neighboring sections in view.
 3. **Check every rule** in Section 6 that applies to the scope. If a compiled `thesis.pdf` is available and up to date, use it for length checks; otherwise estimate from the source (see S1).
-4. **Report findings** in the format below. Do not edit the files.
+4. **Compare with the recommended content** (Section 7) when the whole thesis or a complete chapter is reviewed.
+5. **Report findings** in the format below. Do not edit the files.
 
 ### Report Format
 
@@ -226,7 +229,8 @@ Group findings by file in document order. For each finding give:
 - **Hint:** what kind of change would resolve it, without writing the replacement text
 
 Finish with a short overview: number of findings per rule, the most important structural issues, and remaining placeholders.
-Mark findings as **violation** (rule clearly broken) or **check** (likely issue that needs the students' judgment, e.g. estimated lengths or borderline wording).
+For whole-thesis reviews, add a content coverage overview: for each area C1–C5, where it is covered (chapter/section) or that it is missing, plus the parts that fit no area.
+Mark findings as **violation** (rule clearly broken), **check** (likely issue that needs the students' judgment, e.g. estimated lengths or borderline wording), or **recommendation** (content suggestion from Section 7, never a violation).
 Answer in the language the students use to communicate with you, but quote the thesis text verbatim.
 
 ## 6. Rules
@@ -324,3 +328,24 @@ Sources should be of high quality, in this order of preference:
 
 Web sources must state the **date of last access** (e.g. `note = {letzter Zugriff am 23.05.2021}` or `note = {last accessed on 2021-05-23}`) and must be reasonably trustworthy (no anonymous blogs, forums, or AI-generated content).
 When reviewing `bib.bib`, report the distribution of source types, web entries without access date, and entries that are never cited.
+
+## 7. Recommended Content
+
+The supervisors recommend that a thesis covers the content areas below.
+This is a **guideline, not a rule**: it does not produce violations.
+Use it when planning the structure (Phase 4) and during reviews to point out gaps and to question parts that do not serve any of these areas.
+
+| ID | Content area                              | Expected content                                                                                                                                                  |
+| -- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| C1 | Scientific part / Related Work            | Relevant scientific papers are read and incorporated (cited, compared, and put in relation to the project); related work and existing solutions (see E1, E2).    |
+| C2 | Technology decisions                      | Evaluation of the technology options: alternatives, criteria, and the reasons for the choice made (not a description of the basics, see L4).                     |
+| C3 | Requirements                              | Carefully worked-out requirements, e.g. user stories, use cases, functional and non-functional requirements.                                                      |
+| C4 | User manual (short)                       | How the application works from the user's point of view, including screenshots.                                                                                    |
+| C5 | Technical part                            | Data model (e.g. ERD), software design (architecture, components), algorithmic challenges, problems encountered and how they were solved, test strategies.       |
+
+### How to Apply
+
+- **Map by content, not by heading.** Chapter names and order are up to the students (see Conventions); an area may be spread over several chapters or sections, e.g. the technical part split per author. The template's sample chapters roughly correspond to C1 (*Related Work*), C2 (*Technologies*), and C5 (*Implementation*); C3 and C4 have no sample chapter.
+- **Missing or thin areas:** if an area (or a bullet within C5, such as test strategies or the data model) is missing or only mentioned in passing, recommend adding it and explain what it would contribute. Do not write the content.
+- **Unmapped parts:** if a chapter or section does not fit any area and is not required by the fixed structure (Introduction, Summary, abstracts, appendix), ask the students to consider whether it is needed, could be shortened, or moved to the appendix. It may well be justified by the project; the decision is the students'.
+- **Scope of the user manual:** C4 is meant to be short. Flag a manual that dominates the thesis, and suggest moving detailed step-by-step material to the appendix.
